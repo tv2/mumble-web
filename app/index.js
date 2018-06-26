@@ -11,30 +11,36 @@ import keyboardjs from 'keyboardjs'
 
 import { ContinuousVoiceHandler, PushToTalkVoiceHandler, VADVoiceHandler, initVoice } from './voice'
 
-const dompurify = _dompurify(window)
+const dompurify = _dompurify(window);
+
+var queryParams = new URLSearchParams(window.location.search);
 
 function sanitize (html) {
   return dompurify.sanitize(html, {
     ALLOWED_TAGS: ['br', 'b', 'i', 'u', 'a', 'span', 'p']
-  })
+  });
 }
 
-// GUI
+// Knockout - GUI
 
 function ConnectDialog () {
-  var self = this
-  self.address = ko.observable('')
-  self.port = ko.observable('443')
-  self.token = ko.observable('')
-  self.username = ko.observable('')
-  self.password = ko.observable('')
-  self.visible = ko.observable(true)
-  self.show = self.visible.bind(self.visible, true)
-  self.hide = self.visible.bind(self.visible, false)
+
+  
+
+  var self = this;
+  self.address = ko.observable(queryParams.get('server'));
+  self.port = ko.observable('443');
+  self.token = ko.observable('');
+  self.username = ko.observable(queryParams.get("user"));
+  self.password = ko.observable(queryParams.get("pass"));
+  self.visible = ko.observable(true);
+  self.show = self.visible.bind(self.visible, true);
+  self.hide = self.visible.bind(self.visible, false);
   self.connect = function () {
-    self.hide()
-    ui.connect(self.username(), self.address(), self.port(), self.token(), self.password())
-  }
+    self.hide();
+    ui.connect(self.username(), self.address(), self.port(), self.token(), self.password());
+  };
+  
 }
 
 function ConnectionInfo () {
@@ -112,7 +118,7 @@ class SettingsDialog {
 class Settings {
   constructor () {
     const load = key => window.localStorage.getItem('mumble.' + key)
-    this.voiceMode = load('voiceMode') || 'vad'
+    this.voiceMode = load('voiceMode') || 'ptt'
     this.pttKey = load('pttKey') || 'ctrl + shift'
     this.vadLevel = load('vadLevel') || 0.3
   }
@@ -235,8 +241,14 @@ class GlobalBindings {
             message: sanitize(client.welcomeMessage)
           })
         }
+        
+        // Move to queryArgument "channel" if possible:
+//        this.requestMove(client.users[0].__ui, presetChannel)
+          var presetChannel = client.channels.find(function (presetChannel) { return presetChannel.__ui.model._name === queryParams.get('channel'); });
+          this.requestMove(this.client.self.__ui, presetChannel.__ui);
 
-        // Startup audio input processing
+
+          // Startup audio input processing
         this._updateVoiceHandler()
         // Tell server our mute/deaf state (if necessary)
         if (this.selfDeaf()) {
@@ -422,6 +434,19 @@ class GlobalBindings {
       }
     }
 
+    this.talkPushed = () => {
+      console.log("TalkPhushed");
+      voiceHandler._pushed = true;
+      this.thisUser().talking('on')
+    }
+
+    this.talkReleased = () => {
+      console.log("TalkReleased");
+      voiceHandler._pushed = false;
+      this.thisUser().talking('off')
+    }
+
+
     this.messageBoxHint = ko.pureComputed(() => {
       if (!this.thisUser()) {
         return '' // Not yet connected
@@ -475,6 +500,8 @@ class GlobalBindings {
 
     this.requestMove = (user, channel) => {
       if (this.connected()) {
+        console.log(user);
+        console.log(channel);
         user.model.setChannel(channel.model)
       }
     }
@@ -573,6 +600,8 @@ class GlobalBindings {
     }
   }
 }
+
+// Bind KnockOut Binding to UI 
 var ui = new GlobalBindings()
 
 // Used only for debugging

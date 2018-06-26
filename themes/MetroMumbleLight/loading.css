@@ -3,20 +3,20 @@
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: #eee;
+  background-color: rgb(26, 26, 26);
   z-index: 1000;
 }
 
 .loading-circle {
   box-sizing: border-box;
-  width: 80px;
-  height: 80px;
+  width: 15vw;
+  height: 15vw;
   position: absolute;
-  top: calc(50% - 40px);
-  left: calc(50% - 40px);
+  top: calc(50% - 6vh);
+  left: calc(50% - 6vw);
   border-radius: 100%;
-  border: 10px solid #ddd;
-  border-top-color: #999;
+  border: 10px solid rgb(138, 138, 138);
+  border-top-color: rgb(112, 112, 112);
   animation: spin 1s infinite linear;
 }
 
@@ -28,6 +28,6 @@
 
 .loaded {
   top: -100%;
-  transition: top 1s;
+  transition: top 0.5s;
   transition-delay: 2s;
 }

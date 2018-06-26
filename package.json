@@ -48,5 +48,8 @@
     "mumble-client-websocket": "^1.0.0",
     "mumble-client": "^1.1.1",
     "web-audio-buffer-queue": "^1.0.0"
+  },
+  "dependencies": {
+    "npm": "^6.1.0"
   }
 }

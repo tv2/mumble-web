@@ -1,54 +1,45 @@
 html, body {
-  background-color: #eee;
-  margin: 0;
-  overflow: hidden;
-  height: 100%
+  position: fixed;
+  background-color: rgb(53, 53, 53);
+  color: #bbb;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 #container {
   height: 98%;
-  margin: 0 1% 0 1%;
+  margin: 0 0.1% 0 0.1%;
 }
 #container::before {
   display: block;
   content: "";
-  height: 1%;
+  height: 0.1%;
 }
+
+/* Channel Window */
 .channel-root-container {
-  text-size: 16px;
-  margin-left: 2px;
-  background-color: white;
-  border: 1px solid lightgray;
+  font-size: 3vh;
+  color: #bbb;
+  margin-left: 0.3vw;
+  background-color: rgb(31, 31, 31);
+  border: 1px solid rgb(56, 56, 56);
   float: left;
-  width: calc(60% - 6px);
-  height: calc(100% - 38px);
-  border-radius: 3px;
+  width: calc(100% - 0.6vw);
+  height: 35vh;
+  border-radius: 0.1%;
   overflow-x: hidden;
   overflow-y: auto;
 }
-.chat {
-  margin-right: 2px;
-  float: left;
-  width: 40%;
-  height: calc(100% - 38px);
-}
-.log {
-  background-color: white;
-  height: calc(100% - 42px);
-  padding: 5px;
-  border: 1px lightgray solid;
-  border-radius: 3px;
-  overflow-x: hidden;
-  overflow-y: scroll;
-}
+
 .branch img {
-  height: 19px;
+  height: 3vh;
 }
 .branch {
   float: left;
-  padding-top: 3px;
-  padding-bottom: 3px;
-  background-color: white;
-  margin-right:
+  padding-top: 1%;
+  padding-bottom: 1%;
+  /* margin-right: */
 }
 .channel-sub {
   margin-left: 9px;
@@ -74,7 +65,7 @@ html, body {
   width: 9px;
   border-left: 1px lightgray solid;
   border-bottom: 1px lightgray solid;
-  height: 14px;
+  height: 1.7vh;
 }
 .channel-wrapper:nth-last-child(n + 2) > .channel-tree:after,
 .user-wrapper:nth-last-child(n + 2) .user-tree:after {
@@ -83,7 +74,7 @@ html, body {
   position: relative;
   width: 0px;
   border-left: 1px lightgray solid;
-  height: 14px;
+  height: 1.7vh;
 }
 .user {
   margin-left: 9px;
@@ -92,17 +83,16 @@ html, body {
   float: right;
 }
 .user,.channel{
-  height: 23px;
-  padding: 2px;
+  height: 3.5vh;
+  padding: 0.1%;
   border: 1px solid transparent;
 }
 .selected {
-  background-color: lightblue !important;
-  border: 1px solid gray;
-  border-radius: 3px;
+  border: 0.01vh solid gray;
+  border-radius: 0.1vh;
 }
 .user:hover,.channel:hover {
-  background-color: lightgray;
+  background-color: rgb(48, 48, 48);
 }
 .thisClient {
   font-weight: bold
@@ -112,12 +102,12 @@ html, body {
 }
 .user-status img, .channel-status img {
   margin-top: 2px;
-  width: 19px;
-  height: 19px
+  width: 3vw;
+  height: 3vh
 }
 .channel img, .user img {
   width: auto;
-  height: 19px;
+  height: 3.5vh;
 }
 .channel-name, .user-name {
   display: inline;
@@ -138,12 +128,26 @@ html, body {
   position: absolute;
   z-index: 100;
 }
+
+.channel-icon .channel-icon-active {
+  display: none;
+}
+.channel-tag {
+  font-weight: bold;
+  color: orange;
+}
+.user-tag {
+  font-weight: bold;
+  color: green;
+}
+
+/* Toolbar */
 .toolbar {
-  height: 36px;
+  height: 5vh;
 }
 .toolbar img {
-  height: 28px;
-  width: 28px;
+  height: 4vh;
+  width: auto;
   padding: 2px;
   border: 1px solid transparent;
   border-radius: 3px;
@@ -164,22 +168,12 @@ html, body {
 .handle-horizontal {
   width: auto !important;
   border: none !important;
-  background-color: #eee !important;
 }
 .handle-vertical {
   display: none;
 }
-.channel-icon .channel-icon-active {
-  display: none;
-}
-.channel-tag {
-  font-weight: bold;
-  color: orange;
-}
-.user-tag {
-  font-weight: bold;
-  color: green;
-}
+
+/*Message */
 #message-box {
   width: 100%;
   border: none;
@@ -198,6 +192,8 @@ form {
 .tb-information, .tb-record, .tb-comment {
   filter: grayscale(100%);
 }
+
+/* Connect - Box */
 .dialog-header {
   height: 20px;
   width: calc(100% - 10px);
@@ -215,6 +211,41 @@ form {
 }
 .dialog-close {
   float: left;
+}
+.connect-dialog {
+  width: 300px;
+  height: 277px;
+  top: calc(30% - 100px);
+  left: calc(50% - 150px);
+}
+.connect-dialog input[type=text] {
+  font-size: 15px;
+  border: 1px gray solid;
+  border-radius: 3px;
+  background-color: white;
+  color: black;
+  padding: 2px;
+  width: calc(100% - 8px);
+}
+.connect-dialog input[type=password] {
+  font-size: 15px;
+  border: 1px gray solid;
+  border-radius: 3px;
+  background-color: white;
+  color: black;
+  padding: 2px;
+  width: calc(100% - 8px);
+}
+.dialog-connect {
+  width: 100%;
+  height: 11vh;
+  float: right;
+  font-size: 30px;
+  border: 1px gray solid;
+  border-radius: 3px;
+  background-color: rgb(43, 134, 51);
+  color: black;
+  padding: 1px;  
 }
 .dialog-submit {
   float: right;
@@ -239,6 +270,9 @@ form {
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
   z-index: 20;
 }
+
+
+/*Settings */
 .settings-dialog {
   width: 300px;
   height: 156px;
@@ -266,27 +300,25 @@ form {
 .settings-dialog .mic-volume {
   height: 100%;
 }
-.connect-dialog {
-  width: 300px;
-  height: 227px;
-  top: calc(50% - 100px);
-  left: calc(50% - 150px);
+
+/* NDI window */
+
+.NDIwindow {
+  height: 50vh;
+  width: 100vw;
 }
-.connect-dialog input[type=text] {
-  font-size: 15px;
+/* Talk-button */
+
+.talk-button {
+  width: 100%;
+  height: 11vh;
+  float: left;
+  font-size: 400%;
+  text-align: center;
   border: 1px gray solid;
   border-radius: 3px;
-  background-color: white;
+  background-color: rgb(43, 134, 51);
   color: black;
-  padding: 2px;
-  width: calc(100% - 8px);
+  padding: 1px;  
 }
-.connect-dialog input[type=password] {
-  font-size: 15px;
-  border: 1px gray solid;
-  border-radius: 3px;
-  background-color: white;
-  color: black;
-  padding: 2px;
-  width: calc(100% - 8px);
-}
+
