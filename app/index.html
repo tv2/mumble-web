@@ -225,8 +225,10 @@
       <div class="channel-root-container" data-bind="if: root">
         <div class="channel-root" data-bind="template: {name: 'channel', data: root}"></div>
       </div>
-      <iframe class="NDIwindow" src="http://91.224.210.82:64738/monitering.html" name="targetframe" allowTransparency="true" scrolling="no" frameborder="0" >
+      <!-- Future NDI Weblink video:
+      <iframe class="NDIwindow" src="http://xx.xx.xx.xx" name="targetframe" allowTransparency="true" scrolling="no" frameborder="0" >
       </iframe>
+      -->
       <!-- Talk button -->
       <div class="talk-button" type="button" id="talk-state" data-bind="event: {touchstart: talkPushed, touchend: talkReleased, mousedown: talkPushed, mouseup: talkReleased}">PUSH TO TALK</div>
     </div>

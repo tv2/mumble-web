@@ -50,6 +50,7 @@
     "web-audio-buffer-queue": "^1.0.0"
   },
   "dependencies": {
+    "jshint": "^2.9.5",
     "npm": "^6.1.0"
   }
 }

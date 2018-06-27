@@ -243,13 +243,12 @@ class GlobalBindings {
         }
         
         // Move to queryArgument "channel" if possible:
-//        this.requestMove(client.users[0].__ui, presetChannel)
-          var presetChannel = client.channels.find(function (presetChannel) { return presetChannel.__ui.model._name === queryParams.get('channel'); });
-          this.requestMove(this.client.self.__ui, presetChannel.__ui);
+        var presetChannel = client.channels.find(function (presetChannel) { return presetChannel.__ui.model._name === queryParams.get('channel'); });
+        this.requestMove(this.client.self.__ui, presetChannel.__ui);
 
 
-          // Startup audio input processing
-        this._updateVoiceHandler()
+        // Startup audio input processing
+        this._updateVoiceHandler();
         // Tell server our mute/deaf state (if necessary)
         if (this.selfDeaf()) {
           this.client.setSelfDeaf(true)
@@ -313,17 +312,18 @@ class GlobalBindings {
       }).on('voice', stream => {
         console.log(`User ${user.username} started takling`)
         var userNode = new BufferQueueNode({
+          bufferSize: 256,
           audioContext: audioContext
         })
-        userNode.connect(audioContext.destination)
-
+        userNode.connect(audioContext.destination);
+        
         var resampler = new Resampler({
           unsafe: true,
           type: Resampler.Type.ZERO_ORDER_HOLD,
           ratio: audioContext.sampleRate / 48000
         })
         resampler.pipe(userNode)
-
+        
         stream.on('data', data => {
           if (data.target === 'normal') {
             ui.talking('on')
@@ -332,6 +332,9 @@ class GlobalBindings {
           } else if (data.target === 'whisper') {
             ui.talking('whisper')
           }
+          // If you wish to run with no samplerate conversion:
+          // userNode.write(Buffer.from(data.pcm.buffer));
+          
           resampler.write(Buffer.from(data.pcm.buffer))
         }).on('end', () => {
           console.log(`User ${user.username} stopped takling`)
