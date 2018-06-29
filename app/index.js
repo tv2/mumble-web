@@ -4,6 +4,7 @@ import mumbleConnect from 'mumble-client-websocket'
 import CodecsBrowser from 'mumble-client-codecs-browser'
 import BufferQueueNode from 'web-audio-buffer-queue'
 import audioContext from 'audio-context'
+//var window = require('global/window');
 import Resampler from 'libsamplerate.js'
 import ko from 'knockout'
 import _dompurify from 'dompurify'
@@ -24,9 +25,6 @@ function sanitize (html) {
 // Knockout - GUI
 
 function ConnectDialog () {
-
-  
-
   var self = this;
   self.address = ko.observable(queryParams.get('server'));
   self.port = ko.observable('443');
@@ -316,7 +314,7 @@ class GlobalBindings {
           audioContext: audioContext
         })
         userNode.connect(audioContext.destination);
-        
+
         var resampler = new Resampler({
           unsafe: true,
           type: Resampler.Type.ZERO_ORDER_HOLD,
@@ -332,9 +330,6 @@ class GlobalBindings {
           } else if (data.target === 'whisper') {
             ui.talking('whisper')
           }
-          // If you wish to run with no samplerate conversion:
-          // userNode.write(Buffer.from(data.pcm.buffer));
-          
           resampler.write(Buffer.from(data.pcm.buffer))
         }).on('end', () => {
           console.log(`User ${user.username} stopped takling`)
