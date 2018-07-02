@@ -1,6 +1,8 @@
+
 html, body {
   position: fixed;
-  background-color: rgb(53, 53, 53);
+  max-width: 60vh;
+  background-color: rgb(0, 0, 0);
   color: #bbb;
   top: 0;
   bottom: 0;
@@ -8,13 +10,13 @@ html, body {
   right: 0;
 }
 #container {
-  height: 98%;
-  margin: 0 0.1% 0 0.1%;
+  height: 100%;
+  margin: 0 0 0 0;
 }
 #container::before {
   display: block;
   content: "";
-  height: 0.1%;
+  height: 0.0001%;
 }
 
 /* Channel Window */
@@ -75,7 +77,9 @@ html, body {
   font-weight: bold
 }
 .currentChannel {
-  font-weight: bold
+  font-weight: bold;
+  border-bottom: 0.1%;
+  border-color: red;
 }
 .user-status img, .channel-status img {
   width: 2vw;
@@ -120,11 +124,12 @@ html, body {
 /* Toolbar */
 .toolbar {
   height: 5.5vh;
+  width: 99.2%;
   background-color: rgb(19, 19, 19);
   border-width: 0.0007%;
   border-style: solid;
   border-color: rgb(68, 68, 68);
-  margin-left: 0.3%;
+  margin-left: 0.8%;
   margin-bottom: 1%;
 }
 .toolbar img {
@@ -161,14 +166,17 @@ html, body {
   float: left;
 }
 .connect-dialog {
-  top: calc(30%);
-  left: calc(25%);
+  position: absolute;
+  z-index: 20;
+  top: 30%;
+  left: 15vh;
+  height: 30vh;
+  width: 30vh;
 }
 .connect-dialog-submit {
-  width: 50vw;
-  height: 30vh;
-  float: center;
-  font-size: 400%;
+  width: 100%;
+  height: 100%;
+  font-size: 2em;
   border: 3px gray solid;
   border-radius: 20%;
   background: linear-gradient( rgb(179, 29, 29), rgb(141, 22, 22));
@@ -248,11 +256,11 @@ html, body {
 /* Talk-button */
 
 .talk-button {
-  width: 98%;
+  width: 99%;
   height: 9vh;
   line-height: 9vh;
   float: left;
-  font-size: 600%;
+  font-size: 4em;
   text-align: center;
   border-style: solid;
   border-color: rgb(71, 71, 71);
@@ -265,6 +273,7 @@ html, body {
 }
 
 .talk-button:active {
-border-color: yellow
+  background: red;
+  border-color: yellow
 }
 

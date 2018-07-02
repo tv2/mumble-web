@@ -4,7 +4,6 @@ import mumbleConnect from 'mumble-client-websocket'
 import CodecsBrowser from 'mumble-client-codecs-browser'
 import BufferQueueNode from 'web-audio-buffer-queue'
 import audioContext from 'audio-context'
-//var window = require('global/window');
 import Resampler from 'libsamplerate.js'
 import ko from 'knockout'
 import _dompurify from 'dompurify'
